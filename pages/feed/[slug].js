@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import styles from "../../styles/feed.module.css";
 export const Feed = ({ pageNumber, articles }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div className={styles.main}>
@@ -14,28 +14,56 @@ export const Feed = ({ pageNumber, articles }) => {
           {!!article.urlToImage && <img src={article.urlToImage} />}
         </div>
       ))}
-      <div className={styles.paginator}>
-        <div onClick={() => {
-          if(pageNumber > 1) {
-            router.push(`/feed/${pageNumber - 1}`).then(() => window.scrollTo(0,0))
-          }
-        }} 
-        className={pageNumber === 1 ? styles.disabled : styles.active}>
+      <div className={styles.paginator}
+      onClick={() => {
+        if(pageNumber > 1) {
+          router.push(`/feed/${pageNumber - 1}`).then(() => window.scrollTo(0,0))
+        }
+      }}
+      >
+         
+      Next page 
+      </div>
+
+        {/* <div
+          onClick={() => {
+            if (pageNumber > 1) {
+              router
+                .push(`/feed/${pageNumber - 1}`)
+                .then(() => window.scrollTo(0, 0));
+            }
+          }}
+          className={pageNumber === 1 ? styles.disabled : styles.active}
+        >
           Previous Page
-        </div>
+        </div> */}
         <div>Page: {pageNumber}</div>
-        <div onClick={() => {
-          if(pageNumber < 5) {
-            router.push(`/feed/${pageNumber + 1}`).then(() => window.scrollTo(0,0))
-          }
-        }} 
-        className={pageNumber === 5 ? styles.disabled : styles.active}>
+        <div
+          onClick={() => {
+            if (pageNumber < 5) {
+              router
+                .push(`/feed/${pageNumber + 1}`)
+                .then(() => window.scrollTo(0, 0));
+            }
+          }}
+          className={pageNumber === 5 ? styles.disabled : styles.active}
+        >
           Next Page
         </div>
       </div>
     </div>
   );
 };
+
+
+
+
+
+
+
+
+
+
 
 export const getServerSideProps = async (pageContext) => {
   const pageNumber = pageContext.query.slug;
